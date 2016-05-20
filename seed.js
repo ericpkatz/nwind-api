@@ -29,12 +29,17 @@ db.connect()
   })
   .then(function(){
     users = [];
-    while(users.length < 100)
+    while(users.length < 100){
+      var firstName = Faker.name.firstName(); 
+      var lastName = Faker.name.lastName();
       users.push({ 
-        firstName: Faker.name.firstName(),
-        lastName: Faker.name.lastName(),
+        password: firstName,
+        email: `${firstName}.${lastName}@example.com`,
+        firstName: firstName,
+        lastName: lastName,
         jobTitle: Faker.name.jobTitle()
       });
+    }
     products = [];
     while(products.length < 100)
       products.push({ 
