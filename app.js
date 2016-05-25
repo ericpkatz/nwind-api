@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var products = require('./routes/products');
 var categories = require('./routes/categories');
 var sessions = require('./routes/sessions');
+var departments = require('./routes/departments');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/api/users', users);
 app.use('/api/products', products);
 app.use('/api/categories', categories);
 app.use('/api/sessions', sessions);
+app.use('/api/departments', departments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -3,6 +3,7 @@ var User = db.models.User;
 var Product = db.models.Product;
 var Category = db.models.Category;
 var Department = db.models.Department;
+var FavoriteProduct = db.models.FavoriteProduct;
 var Promise = require('bluebird');
 var Faker = require('faker');
 
@@ -73,16 +74,32 @@ Promise.bind({})
   .then(function(){
     var that = this;
     return Promise.map(this.users, function(user){
-      user.favoriteProductId = randomIdFromCollection(that.products); 
-      user.secondFavoriteProductId = randomIdFromCollection(that.products); 
-      user.thirdFavoriteProductId = randomIdFromCollection(that.products); 
       user.departmentId = randomIdFromCollection(that.departments);
       return User.create(user);
     });
   })
   .then(function(results){
+    this.users = results;
     results.forEach(function(result){
-      console.log(result.get());
+      console.log('USER', result.get());
+    });
+  })
+  .then(function(){
+    var that = this;
+    return Promise.map(this.users, function(user){
+      return FavoriteProduct.create({userId: user.id, productId: randomIdFromCollection(that.products)});
+    });
+  })
+  .then(function(){
+    var that = this;
+    return Promise.map(this.users, function(user){
+      return FavoriteProduct.create({userId: user.id, productId: randomIdFromCollection(that.products)});
+    });
+  })
+  .then(function(){
+    var that = this;
+    return Promise.map(this.users, function(user){
+      return FavoriteProduct.create({userId: user.id, productId: randomIdFromCollection(that.products)});
     });
   })
   .then(function(){

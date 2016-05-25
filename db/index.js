@@ -9,6 +9,7 @@ models.Category = db.define('category', {
   name: Sequelize.STRING
 });
 
+
 models.Department = db.define('department', {
   name: Sequelize.STRING
 });
@@ -41,16 +42,23 @@ models.User = db.define('user', {
   }
 });
 
+models.FavoriteProduct = db.define('favorite_product', {
+  priority: Sequelize.INTEGER
+
+});
+
 models.Product = db.define('product', {
   name: Sequelize.STRING
 });
 
 models.Product.belongsTo(models.Category);
 
-models.User.belongsTo(models.Product, { as: 'favoriteProduct' });
-models.User.belongsTo(models.Product, { as: 'secondFavoriteProduct' });
-models.User.belongsTo(models.Product, { as: 'leastFavoriteProduct' });
 models.User.belongsTo(models.Department, { as: 'department' });
+
+models.User.hasMany(models.FavoriteProduct, { as: 'favoriteProducts', foreignKey: 'userId' });
+
+models.FavoriteProduct.belongsTo(models.User, { as: 'user'});
+models.FavoriteProduct.belongsTo(models.Product, { as: 'product' });
 
 var _conn;
 
