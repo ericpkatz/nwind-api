@@ -3,11 +3,17 @@ var crypto = require('crypto');
 
 var db = new Sequelize(process.env.CONN || 'postgres://localhost/nwind');
 
-var Category = db.define('category', {
+var models = {};
+
+models.Category = db.define('category', {
   name: Sequelize.STRING
 });
 
-var User = db.define('user', {
+models.Department = db.define('department', {
+  name: Sequelize.STRING
+});
+
+models.User = db.define('user', {
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
   jobTitle: Sequelize.STRING,
@@ -35,15 +41,16 @@ var User = db.define('user', {
   }
 });
 
-var Product = db.define('product', {
+models.Product = db.define('product', {
   name: Sequelize.STRING
 });
 
-Product.belongsTo(Category);
+models.Product.belongsTo(models.Category);
 
-User.belongsTo(Product, { as: 'favoriteProduct' });
-User.belongsTo(Product, { as: 'secondFavoriteProduct' });
-User.belongsTo(Product, { as: 'leastFavoriteProduct' });
+models.User.belongsTo(models.Product, { as: 'favoriteProduct' });
+models.User.belongsTo(models.Product, { as: 'secondFavoriteProduct' });
+models.User.belongsTo(models.Product, { as: 'leastFavoriteProduct' });
+models.User.belongsTo(models.Department, { as: 'department' });
 
 var _conn;
 
@@ -57,9 +64,5 @@ module.exports = {
   sync : function(){
     return db.sync({ force: true});
   },
-  models: {
-    User: User,
-    Product: Product,
-    Category: Category
-  }
+  models: models 
 };

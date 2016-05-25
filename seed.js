@@ -2,20 +2,34 @@ var db = require('./db');
 var User = db.models.User;
 var Product = db.models.Product;
 var Category = db.models.Category;
+var Department = db.models.Department;
 var Promise = require('bluebird');
 var Faker = require('faker');
+
+function randomIdFromCollection(collection){
+  return collection[Faker.random.number(collection.length - 1)].id;
+}
 
 Promise.bind({})
   .then(function(){
     this.products = [];
     this.categories = [];
     this.users = [];
-    return db.connect()
+    this.departments = [];
+    return db.connect();
   })
   .then(function(){
     return db.sync();
   })
   .then(function(){
+    while(this.departments.length < 10)
+      this.departments.push({ name: Faker.commerce.department() });
+    return Promise.map(this.departments, function(department){
+      return Department.create(department);
+    });
+  })
+  .then(function(departments){
+    this.departments = departments;
     while(this.categories.length < 10)
       this.categories.push(Faker.commerce.productAdjective());
   })
@@ -36,13 +50,13 @@ Promise.bind({})
         email: `${firstName}.${lastName}@example.com`,
         firstName: firstName,
         lastName: lastName,
-        jobTitle: Faker.name.jobTitle()
+        jobTitle: Faker.name.jobTitle(),
       });
     }
     while(this.products.length < 100)
       this.products.push({ 
         name: Faker.commerce.productName(),
-        categoryId: this.categories[Faker.random.number(this.categories.length - 1)].id
+        categoryId: randomIdFromCollection(this.categories) 
       });
   })
   .then(function(){
@@ -59,9 +73,10 @@ Promise.bind({})
   .then(function(){
     var that = this;
     return Promise.map(this.users, function(user){
-      user.favoriteProductId = that.products[Faker.random.number(that.products.length - 1)].id;
-      user.secondFavoriteProductId = that.products[Faker.random.number(that.products.length - 1)].id;
-      user.leastFavoriteProductId = that.products[Faker.random.number(that.products.length - 1)].id;
+      user.favoriteProductId = randomIdFromCollection(that.products); 
+      user.secondFavoriteProductId = randomIdFromCollection(that.products); 
+      user.thirdFavoriteProductId = randomIdFromCollection(that.products); 
+      user.departmentId = randomIdFromCollection(that.departments);
       return User.create(user);
     });
   })
