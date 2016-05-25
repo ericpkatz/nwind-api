@@ -5,34 +5,33 @@ var Category = db.models.Category;
 var Promise = require('bluebird');
 var Faker = require('faker');
 
-var products, users, categories;
-db.connect()
+Promise.bind({})
+  .then(function(){
+    this.products = [];
+    this.categories = [];
+    this.users = [];
+    return db.connect()
+  })
   .then(function(){
     return db.sync();
   })
   .then(function(){
-    categories = [];
-    while(categories.length < 10)
-      categories.push(Faker.commerce.productAdjective());
-    return categories;
+    while(this.categories.length < 10)
+      this.categories.push(Faker.commerce.productAdjective());
   })
   .then(function(){
-    return categories.map(function(category){
+    return Promise.map(this.categories, function(category){
       return Category.create({ name: category});
     });
   })
-  .then(function(promises){
-    return Promise.all(promises);
-  })
   .then(function(_categories){
-    categories = _categories;
+    this.categories = _categories;
   })
   .then(function(){
-    users = [];
-    while(users.length < 100){
+    while(this.users.length < 100){
       var firstName = Faker.name.firstName(); 
       var lastName = Faker.name.lastName();
-      users.push({ 
+      this.users.push({ 
         password: firstName,
         email: `${firstName}.${lastName}@example.com`,
         firstName: firstName,
@@ -40,37 +39,31 @@ db.connect()
         jobTitle: Faker.name.jobTitle()
       });
     }
-    products = [];
-    while(products.length < 100)
-      products.push({ 
+    while(this.products.length < 100)
+      this.products.push({ 
         name: Faker.commerce.productName(),
-        categoryId: categories[Faker.random.number(categories.length - 1)].id
+        categoryId: this.categories[Faker.random.number(this.categories.length - 1)].id
       });
   })
   .then(function(){
-    return products.map(function(product){
+    return Promise.map(this.products, function(product){
       return Product.create(product);
     });
   })
-  .then(function(promises){
-    return Promise.all(promises);
-  })
   .then(function(results){
-    products = results;
+    this.products = results;
     results.forEach(function(result){
       console.log(result.get());
     });
   })
   .then(function(){
-    return users.map(function(user){
-      user.favoriteProductId = products[Faker.random.number(products.length - 1)].id;
-      user.secondFavoriteProductId = products[Faker.random.number(products.length - 1)].id;
-      user.leastFavoriteProductId = products[Faker.random.number(products.length - 1)].id;
+    var that = this;
+    return Promise.map(this.users, function(user){
+      user.favoriteProductId = that.products[Faker.random.number(that.products.length - 1)].id;
+      user.secondFavoriteProductId = that.products[Faker.random.number(that.products.length - 1)].id;
+      user.leastFavoriteProductId = that.products[Faker.random.number(that.products.length - 1)].id;
       return User.create(user);
     });
-  })
-  .then(function(promises){
-    return Promise.all(promises);
   })
   .then(function(results){
     results.forEach(function(result){

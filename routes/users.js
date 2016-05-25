@@ -5,7 +5,22 @@ var Product = require('../db').models.Product;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  User.findAll()
+  User.findAll({
+    include: [
+      {
+        model: Product,
+        as: 'favoriteProduct'
+      },
+      {
+        model: Product,
+        as: 'secondFavoriteProduct'
+      },
+      {
+        model: Product,
+        as: 'leastFavoriteProduct'
+      }
+    ]
+  })
     .then(function(users){
       res.send(users);
     });
