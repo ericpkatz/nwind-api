@@ -1,0 +1,15 @@
+<div class='row'>
+  <div class='col-sm-6'>
+    <h2>Categories</h2>
+    <ul class='list-group'>
+      <li ui-sref-active='list-group-item-success' class='list-group-item' ng-repeat='category in categories'>
+        <a ui-sref='categories.products({ id: category.id})'>
+          {{ category.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class='col-sm-6'>
+    <ui-view></ui-view>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class='row'>
+  <div class='col-sm-6'>
+    <h2>Departments</h2>
+    <ul class='list-group'>
+      <li ui-sref-active='list-group-item-success' class='list-group-item' ng-repeat='department in departments'>
+        <a ui-sref='departments.users({ id: department.id })'>
+          {{ department.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class='col-sm-6'>
+    <ui-view></ui-view>
+  </div>
+</div>

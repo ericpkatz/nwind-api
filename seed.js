@@ -23,16 +23,22 @@ Promise.bind({})
     return db.sync();
   })
   .then(function(){
-    while(this.departments.length < 10)
-      this.departments.push({ name: Faker.commerce.department() });
+    while(this.departments.length < 10){
+      var department = Faker.commerce.department();
+      if(this.departments.filter(function(dep){ return dep.name === department; }).length === 0)
+        this.departments.push({ name: department });
+    }
     return Promise.map(this.departments, function(department){
       return Department.create(department);
     });
   })
   .then(function(departments){
     this.departments = departments;
-    while(this.categories.length < 10)
-      this.categories.push(Faker.commerce.productAdjective());
+    while(this.categories.length < 10){
+      var category = Faker.commerce.productAdjective();
+      if(this.categories.indexOf(category) === -1)
+        this.categories.push(category);
+    }
   })
   .then(function(){
     return Promise.map(this.categories, function(category){
