@@ -1,4 +1,8 @@
 angular.module('app')
+  .run(function(DSHttpAdapter){
+    DSHttpAdapter.defaults.basePath = '/api';
+  
+  })
   .config(function($stateProvider){
     $stateProvider
       .state('departments', {
@@ -9,7 +13,7 @@ angular.module('app')
         },
         resolve: {
           departments: function(DepartmentFactory, $http){
-            return DepartmentFactory.fetchAll();
+            return DepartmentFactory.findAll();
           }
         }
       })

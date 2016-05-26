@@ -1,11 +1,5 @@
 angular.module('app')
-  .factory('DepartmentFactory', function($http){
-    return {
-      fetchAll: function(){
-        return $http.get('/api/departments')
-          .then(function(response){
-            return response.data;
-          });
-      }
-    };
+  .factory('DepartmentFactory', function($http, DS){
+    var factory = DS.defineResource('departments');
+    return factory;
   });
