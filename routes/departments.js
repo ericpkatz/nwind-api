@@ -51,4 +51,11 @@ router.put('/:departmentId/employees/:id', function(req, res, next) {
     });
 });
 
+router.delete('/:departmentId/users/:id', function(req, res, next) {
+  User.destroy({ where: { id: req.params.id }})
+    .then(function(){
+      res.send({});
+    });
+});
+
 module.exports = router;

@@ -26,6 +26,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "cors": "^2.7.1"
+    "cors": "^2.7.1",
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.1.0"
   }
 }

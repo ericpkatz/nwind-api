@@ -7,7 +7,7 @@ angular.module('app')
     $stateProvider
       .state('departments', {
         url: '/departments',
-        templateUrl: '/templates/departments.html',
+        templateUrl: '/browser/templates/departments.html',
         controller: function($scope, departments){
           $scope.departments = departments;
         },
@@ -19,9 +19,12 @@ angular.module('app')
       })
       .state('departments.users', {
         url: '/:id/users',
-        templateUrl: '/templates/users.html',
-        controller: function($scope, users){
+        templateUrl: '/browser/templates/users.html',
+        controller: function($scope, users, UserFactory){
           $scope.users = users;
+          $scope.delete = function(user){
+            UserFactory.destroy({id: user.id, departmentId: user.departmentId})
+          };
         },
         resolve: {
           users: function($http, $stateParams, UserFactory){
@@ -31,31 +34,25 @@ angular.module('app')
       })
       .state('categories', {
         url: '/categories',
-        templateUrl: '/templates/categories.html',
+        templateUrl: '/browser/templates/categories.html',
         controller: function($scope, categories){
           $scope.categories = categories;
         },
         resolve: {
-          categories: function($http){
-            return $http.get('/api/categories')
-              .then(function(response){
-                return response.data;
-              });
+          categories: function(CategoryFactory){
+            return CategoryFactory.findAll();
           }
         }
       })
       .state('categories.products', {
         url: '/:id/products',
-        templateUrl: '/templates/products.html',
+        templateUrl: '/browser/templates/products.html',
         controller: function($scope, products){
           $scope.products = products;
         },
         resolve: {
-          products: function($http, $stateParams){
-            return $http.get('/api/categories/' + $stateParams.id + '/products')
-              .then(function(response){
-                return response.data;
-              });
+          products: function(ProductFactory, $stateParams){
+            return ProductFactory.findAll({ categoryId: $stateParams.id});
           }
         }
       });

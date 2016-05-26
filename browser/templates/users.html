@@ -3,5 +3,6 @@
   <li class='list-group-item' ng-repeat='user in users'>
     {{ user.firstName }},
     {{ user.lastName }}
+    <button class='btn btn-sm btn-danger pull-right' ng-click='delete(user)'>Delete</button>
   </li>
 </ul>
