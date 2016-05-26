@@ -24,11 +24,8 @@ angular.module('app')
           $scope.users = users;
         },
         resolve: {
-          users: function($http, $stateParams){
-            return $http.get('/api/departments/' + $stateParams.id + '/users')
-              .then(function(response){
-                return response.data;
-              });
+          users: function($http, $stateParams, UserFactory){
+            return UserFactory.findAll({ departmentId: $stateParams.id});
           }
         }
       })
