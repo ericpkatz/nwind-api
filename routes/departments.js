@@ -27,6 +27,25 @@ router.get('/', function(req, res, next) {
     }, next);
 });
 
+router.get('/:id', function(req, res, next) {
+  Model.findById(req.params.id)
+    .then(function(item){
+      res.send(item);
+    }, next);
+});
+
+router.put('/:id', function(req, res, next) {
+  Model.findById(req.params.id)
+    .then(function(item){
+      item.name = req.body.name;
+      item.priority = req.body.priority * 1;
+      return item.save();
+    })
+    .then(function(item){
+      res.send(item);
+    }, next)
+});
+
 router.get('/:id/users', function(req, res, next) {
   User.findAll({
     where: { departmentId: req.params.id },

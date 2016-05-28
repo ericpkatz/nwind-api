@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "angular": "^1.5.5",
+    "angular-schema-form": "^0.8.13",
     "angular-ui-router": "^0.3.0",
     "bluebird": "^3.3.5",
     "body-parser": "~1.13.2",

@@ -11,7 +11,8 @@ models.Category = db.define('category', {
 
 
 models.Department = db.define('department', {
-  name: Sequelize.STRING
+  name: Sequelize.STRING,
+  priority: { type: Sequelize.INTEGER, defaultValue: 5}
 });
 
 models.User = db.define('user', {

@@ -1,1 +1,1 @@
-angular.module('app', ['ui.router', 'js-data']);
+angular.module('app', ['ui.router', 'js-data', 'schemaForm']);

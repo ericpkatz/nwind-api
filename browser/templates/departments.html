@@ -2,10 +2,11 @@
   <div class='col-sm-6'>
     <h2>Departments</h2>
     <ul class='list-group'>
-      <li ui-sref-active='list-group-item-success' class='list-group-item' ng-repeat='department in departments'>
+      <li ui-sref-active='list-group-item-success' class='list-group-item' ng-repeat='department in departments | orderBy:"priority"'>
         <a ui-sref='departments.users({ id: department.id })'>
-          {{ department.name }}
+          {{ department.name }} {{department.priority}}
         </a>
+        <button ui-sref='departments.edit({id: department.id})' class='pull-right btn-sm btn-primary btn'>Edit</button>
       </li>
     </ul>
   </div>
