@@ -14,12 +14,12 @@
   </head>
   <body ng-app='app'>
     <div ng-controller='NavCtrl'>
-    <ul class='nav nav-tabs' style='margin-bottom: 10px'>
-      <li ui-sref-active='active'><a ui-sref='departments'>Departments</a></li>
-      <li ui-sref-active='active'><a ui-sref='categories'>Categories</a></li>
-    </ul>
-      <button ng-if='!auth.id' class='btn btn-primary' ui-sref='login'>Login</button>
-      <button ng-if='auth.id' class='btn btn-primary' ng-click='logout()'>Logout</button>
+      <ul class='nav nav-tabs' style='margin-bottom: 10px'>
+        <li ui-sref-active='active'><a ui-sref='departments'>Departments</a></li>
+        <li ui-sref-active='active'><a ui-sref='categories'>Categories</a></li>
+        <li ng-if='!auth.id'><a ui-sref='login'>Login</a></li>
+        <li ng-if='auth.id'><a href='#' ng-click='logout()'>Logout</a></li>
+      </ul>
     </div>
     <div class='container'>
       <h1>NWIND API</h1>
@@ -30,6 +30,7 @@
   <script src="/browser/javascript/app.js"></script>
   <script src="/browser/javascript/category.factory.js"></script>
   <script src="/browser/javascript/config.js"></script>
+  <script src="/browser/javascript/department.edit.ctrl.js"></script>
   <script src="/browser/javascript/department.factory.js"></script>
   <script src="/browser/javascript/nav.ctrl.js"></script>
   <script src="/browser/javascript/product.factory.js"></script>
