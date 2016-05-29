@@ -1,7 +1,13 @@
 angular.module('app')
   .run(function(DSHttpAdapter){
     DSHttpAdapter.defaults.basePath = '/api';
-  
+  })
+  .run(function($window, SessionFactory, $http){
+    if($window.sessionStorage.getItem('token'))
+        $http.get('/api/sessions/' + $window.sessionStorage.getItem('token'))
+          .then(function(response){
+            angular.copy(response.data, SessionFactory.auth);
+          });
   })
   .config(function($stateProvider){
     $stateProvider
@@ -81,7 +87,7 @@ angular.module('app')
         controller: function($scope, users, UserFactory){
           $scope.users = users;
           $scope.delete = function(user){
-            UserFactory.destroy({id: user.id, departmentId: user.departmentId})
+            UserFactory.destroy({id: user.id, departmentId: user.departmentId});
           };
         },
         resolve: {
@@ -113,5 +119,49 @@ angular.module('app')
             return ProductFactory.findAll({ categoryId: $stateParams.id});
           }
         }
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: '/browser/templates/login.html',
+        controller: function($scope, SessionFactory, $http, $window){
+          $scope.login = function(form){
+            $scope.$broadcast('schemaFormValidate'); 
+            if(form.$valid)
+              SessionFactory.create($scope.model)
+                .then(function(session){
+                  $window.sessionStorage.setItem('token', session.id); 
+                  return $http.get('/api/sessions/' + $window.sessionStorage.getItem('token')); 
+                })
+                .then(function(response){
+                  angular.copy(response.data, SessionFactory.auth);
+                });
+          };
+          $scope.schema = {
+            type: 'object',
+            properties: {
+              email: {
+                type: 'string'
+              },
+              password: {
+                type: 'string'
+              } 
+            },
+            required: ['email', 'password']
+          
+          };
+          $scope.form = [
+            '*',
+            {
+              type: 'submit',
+              title: 'Login'
+            
+            }
+          ];
+          $scope.model = {
+          
+          };
+        
+        }
+      
       });
   });

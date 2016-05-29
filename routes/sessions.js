@@ -1,6 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../db').models.User;
+var jwt = require('jwt-simple');
+
+router.get('/:hash', function(req, res, next) {
+  var token = jwt.decode(req.params.hash, 'foobar');
+  User.findById(token.id)
+    .then(function(user){
+      res.send(user);
+    });
+});
 
 router.post('/', function(req, res, next) {
   User.findOne({ where: { email: req.body.email }})
@@ -10,8 +19,8 @@ router.post('/', function(req, res, next) {
       throw next({ status: 401 });
     })
     .then(function(user){
-      //TODO send back a JWT token
-      res.send(user);
+      var token = jwt.encode({ id: user.id }, 'foobar');
+      res.send({ id: token});
     })
     .then(null, next);
 });
