@@ -18,7 +18,8 @@
         <li ui-sref-active='active'><a ui-sref='departments'>Departments</a></li>
         <li ui-sref-active='active'><a ui-sref='categories'>Categories</a></li>
         <li ng-if='!auth.id'><a ui-sref='login'>Login</a></li>
-        <li ng-if='auth.id'><a href='#' ng-click='logout()'>Logout</a></li>
+        <li ng-if='auth.id'><a href='#' ui-sref='settings'>Settings</a></li>
+        <li ng-if='auth.id'><a href='#' ng-click='logout()'>Logout ({{ auth.email}})</a></li>
       </ul>
     </div>
     <div class='container'>

@@ -76,5 +76,18 @@ angular.module('app')
         url: '/login',
         templateUrl: '/browser/templates/login.html',
         controller: 'LoginCtrl',
+      })
+      .state('settings', {
+        resolve: {
+          user: function(SessionFactory){
+            return SessionFactory.me();
+          }
+        },
+        url: '/settings',
+        templateUrl: '/browser/templates/settings.html',
+        controller: function($scope, user){
+          $scope.user = user;
+        
+        }
       });
   });

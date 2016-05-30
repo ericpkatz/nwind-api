@@ -1,9 +1,19 @@
 angular.module('app')
-  .factory('SessionFactory', function(DS, $window, $http){
+  .factory('SessionFactory', function(DS, $window, $http, $q){
     var factory = DS.defineResource({
       name: 'session',
       endpoint: 'sessions'
     });
+
+    factory.me = function(){
+      if(factory.auth.id)
+        return $q.when(factory.auth);
+      return $http.get('/api/sessions/' + $window.sessionStorage.getItem('token')) 
+      .then(function(response){
+        angular.copy(response.data, factory.auth);
+        return factory.auth;
+      });
+    };
 
     factory.login = function(credentials){
 
@@ -39,7 +49,6 @@ angular.module('app')
       {
         type: 'submit',
         title: 'Login'
-      
       }
     ];
 

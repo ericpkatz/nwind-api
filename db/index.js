@@ -44,8 +44,7 @@ models.User = db.define('user', {
 });
 
 models.FavoriteProduct = db.define('favorite_product', {
-  priority: Sequelize.INTEGER
-
+  priority: { type: Sequelize.INTEGER, defaultValue: 5 }
 });
 
 models.Product = db.define('product', {

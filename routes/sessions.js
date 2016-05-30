@@ -1,11 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../db').models.User;
+var FavoriteProduct = require('../db').models.FavoriteProduct;
+var Product = require('../db').models.Product;
 var jwt = require('jwt-simple');
 
 router.get('/:hash', function(req, res, next) {
   var token = jwt.decode(req.params.hash, 'foobar');
-  User.findById(token.id)
+  User.findById(token.id, {
+    include: [
+    {
+      model: FavoriteProduct,
+      as: 'favoriteProducts',
+      include: [{
+        model: Product,
+        as: 'product'
+      }]
+    }
+    
+    ]
+  })
     .then(function(user){
       res.send(user);
     });
