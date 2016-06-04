@@ -1,0 +1,4 @@
+-- create ionic app
+-- test ionic app on phone
+-- connect to aws for uploading photo
+-- ability to edit users
