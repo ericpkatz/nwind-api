@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 var User = require('../db').models.User;
 var Product = require('../db').models.Product;
+var FavoriteProduct = require('../db').models.FavoriteProduct;
 var Department = require('../db').models.Department;
 var include = [
     {
-      model: Model,
+      model: Department,
       as: 'department'
     },
     {
