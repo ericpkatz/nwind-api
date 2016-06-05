@@ -6,6 +6,10 @@ angular.module('app')
     });
 
     factory.me = function(){
+      /*
+      if(!$window.sessionStorage.getItem('token'))
+        return $q.when(null);
+        */
       if(factory.auth.id)
         return $q.when(factory.auth);
       return $http.get('/api/sessions/' + $window.sessionStorage.getItem('token')) 
