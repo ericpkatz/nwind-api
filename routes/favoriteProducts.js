@@ -15,7 +15,7 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res, next){
   FavoriteProduct.create({
     userId: req.params.userId,
-    productId: req.params.productId
+    productId: req.body.productId
   })
   .then(function(favoriteProduct){
     res.send(favoriteProduct);
