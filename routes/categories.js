@@ -10,6 +10,13 @@ router.get('/', function(req, res, next) {
     }, next);
 });
 
+router.get('/:id', function(req, res, next) {
+  Category.findById(req.params.id)
+    .then(function(category){
+      res.send(category);
+    }, next);
+});
+
 router.get('/:id/products', function(req, res, next){
   Product.findAll(
       { where: { categoryId: req.params.id }}
