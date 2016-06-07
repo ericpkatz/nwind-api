@@ -7,19 +7,7 @@ var jwt = require('jwt-simple');
 
 router.get('/:hash', function(req, res, next) {
   var token = jwt.decode(req.params.hash, 'foobar');
-  User.findById(token.id, {
-    include: [
-    {
-      model: FavoriteProduct,
-      as: 'favoriteProducts',
-      include: [{
-        model: Product,
-        as: 'product'
-      }]
-    }
-    
-    ]
-  })
+  User.findById(token.id)
     .then(function(user){
       res.send(user);
     });
