@@ -1,5 +1,8 @@
 <html>
   <head>
+    <!--
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+-->
     <script src='/angular/angular.js'></script>
     <script src='/js-data/dist/js-data.js'></script>
     <script src='/js-data-angular/dist/js-data-angular.js'></script>
@@ -24,6 +27,7 @@
     </div>
     <div class='container'>
       <h1>NWIND API</h1>
+      <%= GOOGLE_PLACES_API_KEY %>
       <ui-view></ui-view>
     </div>
     

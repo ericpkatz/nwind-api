@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var ejs = require('ejs');
+var env = process.env.DEV ? require('./env') : process.env;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -15,6 +17,7 @@ if(process.env.SIMPLE_SEED)
   require('./simpleSeed');
 
 var app = express();
+app.set('view engine', 'ejs');
 
 app.use(require('cors')());
 
@@ -30,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.get('/', function(req, res, next){
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.render('index', { GOOGLE_PLACES_API_KEY: env.GOOGLE_PLACES_API_KEY});
 });
 
 app.use('/api/users', users);

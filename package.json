@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start-dev": "nodemon -i browser/ ./bin/www"
+    "start-dev": "DEV=true nodemon -i browser/ ./bin/www"
   },
   "dependencies": {
     "angular": "^1.5.5",
@@ -17,6 +17,7 @@
     "cors": "^2.7.1",
     "crypto": "0.0.3",
     "debug": "~2.2.0",
+    "ejs": "^2.4.2",
     "express": "~4.13.1",
     "faker": "^3.1.0",
     "flat-ui": "^2.1.1",
