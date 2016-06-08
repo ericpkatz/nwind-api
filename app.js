@@ -11,7 +11,8 @@ var products = require('./routes/products');
 var categories = require('./routes/categories');
 var sessions = require('./routes/sessions');
 var departments = require('./routes/departments');
-//require('./simpleSeed');
+if(process.env.SIMPLE_SEED)
+  require('./simpleSeed');
 
 var app = express();
 

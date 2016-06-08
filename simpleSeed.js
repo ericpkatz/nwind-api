@@ -75,6 +75,7 @@ Promise.bind({})
     console.log(this.categoriesMap);
     this.products = this.products.concat([
         { name: 'beer', categoryId: this.categoriesMap.drinks.id },
+        { name: 'vodka', categoryId: this.categoriesMap.drinks.id },
         { name: 'chicken', categoryId: this.categoriesMap.food.id },
         { name: 'sneakers', categoryId: this.categoriesMap.clothes.id },
     ]);
@@ -82,8 +83,9 @@ Promise.bind({})
       return Product.create(product);
     });
   })
-  .spread(function(beer, chicken, sneakers){
+  .spread(function(beer, vodka, chicken, sneakers){
     this.productsMap.beer = beer;
+    this.productsMap.vodka = vodka;
     this.productsMap.chicken = chicken;
     this.productsMap.sneakers = sneakers;
     console.log(this.productsMap);
