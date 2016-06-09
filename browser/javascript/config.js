@@ -89,5 +89,17 @@ angular.module('app')
           $scope.user = user;
         
         }
+      })
+      .state('user', {
+        resolve: {
+          user: function(){
+            return 'foo'; 
+          }
+        },
+        url: '/user/:id',
+        templateUrl: '/browser/templates/user.html',
+        controller: function($scope, user){
+          $scope.user = user;
+        }
       });
   });

@@ -4,7 +4,7 @@
     {{ user.firstName }},
     {{ user.lastName }}
     <br />
-    {{ user.email }}
+    <a ui-sref='user'>{{ user.email }}</a>
     <button class='btn btn-sm btn-danger pull-right' ng-click='delete(user)'>Delete</button>
     <br clear='both' />
   </li>

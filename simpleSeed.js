@@ -4,6 +4,7 @@ var Product = db.models.Product;
 var Category = db.models.Category;
 var Department = db.models.Department;
 var FavoriteProduct = db.models.FavoriteProduct;
+var Address = db.models.Address;
 var Promise = require('bluebird');
 var Faker = require('faker');
 
@@ -72,7 +73,6 @@ Promise.bind({})
     this.usersMap.curly = curly;
   })
   .then(function(){
-    console.log(this.categoriesMap);
     this.products = this.products.concat([
         { name: 'beer', categoryId: this.categoriesMap.drinks.id },
         { name: 'vodka', categoryId: this.categoriesMap.drinks.id },
@@ -88,7 +88,28 @@ Promise.bind({})
     this.productsMap.vodka = vodka;
     this.productsMap.chicken = chicken;
     this.productsMap.sneakers = sneakers;
-    console.log(this.productsMap);
+  })
+  .then(function(){
+    var whiteHouse = {
+      street: '1600 Pennsylvania Avenue NW',
+      city: 'Washington',
+      state: 'DC',
+      zipcode: '20500',
+      lat:38.8976758,
+      lng: -77.03648229999999,
+      userId: this.usersMap.curly.id
+    };
+    var empireStateBuilding = {
+      street: '350 5th Avenue',
+      city: 'New York',
+      state: 'NY',
+      zipcode: '10118',
+      lat:40.7484404,
+      lng:-73.98565539999998,
+      userId: this.usersMap.curly.id
+    };
+    return Promise.join(Address.create(whiteHouse), Address.create(empireStateBuilding));
+    //this.usersMap.curly.addAddress(address);
   })
 /*
   .then(function(departments){

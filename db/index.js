@@ -15,6 +15,15 @@ models.Department = db.define('department', {
   priority: { type: Sequelize.INTEGER, defaultValue: 5}
 });
 
+models.Address = db.define('address', {
+  street: Sequelize.STRING,
+  city: Sequelize.STRING,
+  state: Sequelize.STRING,
+  zipcode: Sequelize.STRING,
+  lat: Sequelize.DECIMAL,
+  lng: Sequelize.DECIMAL
+});
+
 models.User = db.define('user', {
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
@@ -56,6 +65,8 @@ models.Product.belongsTo(models.Category);
 models.User.belongsTo(models.Department, { as: 'department' });
 
 models.User.hasMany(models.FavoriteProduct, { as: 'favoriteProducts', foreignKey: 'userId' });
+
+models.User.hasMany(models.Address, { as: 'addresses', foreignKey: 'userId'});
 
 models.FavoriteProduct.belongsTo(models.User, { as: 'user'});
 models.FavoriteProduct.belongsTo(models.Product, { as: 'product' });
