@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var inject = require('gulp-inject');
  
 gulp.task('index', function () {
-  var target = gulp.src('./views/index.html');
+  var target = gulp.src('./views/index.ejs');
   var sources = gulp.src([
       './browser/javascript/app.js',
       './browser/javascript/**/*.js'], {read: false});

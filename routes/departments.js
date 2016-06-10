@@ -76,5 +76,6 @@ router.delete('/:departmentId/users/:id', function(req, res, next) {
       res.send({});
     });
 });
+router.use('/:departmentId/users', require('./users')); 
 
 module.exports = router;

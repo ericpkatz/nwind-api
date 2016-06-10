@@ -38,6 +38,7 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
-router.use('/:userId/favoriteProducts', require('./favoriteProducts.js')); 
+router.use('/:userId/favoriteProducts', require('./favoriteProducts')); 
+router.use('/:userId/addresses', require('./addresses')); 
 
 module.exports = router;

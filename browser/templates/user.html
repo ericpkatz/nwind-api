@@ -1,1 +1,27 @@
-TO DO USER
+<input type='text' class='form-control' id='addressSearch'>
+<script>
+</script>
+<div>
+  <div class='row'>
+    <div class='col-sm-6'>
+  <ul>
+    <li ng-repeat='address in addresses'>
+      {{ address.id }}
+      <br />
+      {{ address.city }}
+      <br />
+      {{ address.state }}
+      <br />
+      <a ng-click='delete(address)'>Delete</a>
+      <a ng-click='showOnMap(address)'>Show On Map</a>
+    </li>
+  </ul>
+    </div>
+    <div class='col-sm-6'>
+      <div id='map' style='width:300px; height:300px'></div>
+    </div>
+  </div>
+  <pre>
+    {{ user | json }}
+  </pre>
+</div>

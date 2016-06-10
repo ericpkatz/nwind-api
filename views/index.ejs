@@ -31,6 +31,7 @@
     
   <!-- inject:js -->
   <script src="/browser/javascript/app.js"></script>
+  <script src="/browser/javascript/address.factory.js"></script>
   <script src="/browser/javascript/category.factory.js"></script>
   <script src="/browser/javascript/config.js"></script>
   <script src="/browser/javascript/department.edit.ctrl.js"></script>
@@ -41,22 +42,5 @@
   <script src="/browser/javascript/session.factory.js"></script>
   <script src="/browser/javascript/user.factory.js"></script>
   <!-- endinject -->
-  <input type='text' class='form-control' id='addressSearch'>
-  <script>
-    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('addressSearch', { types: ['geocode']}));
-    autocomplete.addListener('place_changed', function(place){
-      var place = autocomplete.getPlace();
-      console.log(place);
-      var latLng = place.geometry.location;
-      console.log(latLng.lat(), latLng.lng());
-      console.log(autocomplete.getPlace());
-      var address = {};
-      for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
-        address[addressType] = place.address_components[i].short_name;
-      }
-      console.log(address);
-    });
-  </script>
   </body>
 </html>
