@@ -19,7 +19,7 @@ angular.module('app')
         },
         resolve: {
           departments: function(DepartmentFactory, $http){
-            return DepartmentFactory.findAll({}, {bypassCache: true});
+            return DepartmentFactory.findAll({});
           }
         }
       })

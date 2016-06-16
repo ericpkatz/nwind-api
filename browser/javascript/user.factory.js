@@ -1,5 +1,5 @@
 angular.module('app')
-  .factory('UserFactory', function(DS){
+  .factory('UserFactory', function(DS, SocketFactory){
     var factory = DS.defineResource({ 
       name: 'user',
       endpoint: 'users',
@@ -12,6 +12,11 @@ angular.module('app')
         }
       }
     });
+
+    SocketFactory.socket.on('user_change', function(message){
+      console.log(message);
+    });
+
     return factory;
   });
   

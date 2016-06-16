@@ -43,7 +43,7 @@ router.put('/:id', function(req, res, next) {
     })
     .then(function(item){
       res.send(item);
-    }, next)
+    }, next);
 });
 
 router.get('/:id/users', function(req, res, next) {

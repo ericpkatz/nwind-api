@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 var crypto = require('crypto');
+var io = require('../io');
 
 var db = new Sequelize(process.env.CONN || 'postgres://localhost/nwind');
 
@@ -13,6 +14,12 @@ models.Category = db.define('category', {
 models.Department = db.define('department', {
   name: Sequelize.STRING,
   priority: { type: Sequelize.INTEGER, defaultValue: 5}
+}, {
+  hooks: {
+    afterUpdate: function(department){
+      io.broadcast('department_change', department.get()); 
+    }
+  }
 });
 
 models.Address = db.define('address', {
