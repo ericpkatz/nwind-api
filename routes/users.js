@@ -29,6 +29,24 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.post('/', function(req, res, next) {
+  User.create(req.body)
+    .then(function(user){
+      res.send(user);
+    });
+});
+
+router.put('/:id', function(req, res, next) {
+  console.log(req.body);
+  User.update(req.body, { where: { id: req.params.id}})
+    .then(function(user){
+      return User.findById(req.params.id);
+    })
+    .then(function(user){
+      res.send(user);
+    });
+});
+
 router.get('/:id', function(req, res, next) {
   User.findById(req.params.id, {
     include: include

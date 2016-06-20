@@ -23,6 +23,36 @@ angular.module('app')
           }
         }
       })
+      .state('users', {
+        url: '/users',
+        templateUrl: '/browser/templates/users.html',
+        controller: function($scope, users, UserFactory){
+          $scope.users = users;
+          $scope.delete = function(user){
+            UserFactory.destroy(user.id);
+          };
+        },
+        resolve: {
+          users: function(UserFactory){
+            return UserFactory.findAll({}); 
+          }
+        }
+      })
+      .state('update_user', {
+        url: '/users/update/:id',
+        templateUrl: '/browser/templates/update.user.html',
+        controller: 'UserUpdateCtrl',
+        resolve: {
+          user: function(UserFactory, $stateParams){
+            return UserFactory.find($stateParams.id); 
+          }
+        }
+      })
+      .state('create_user', {
+        url: '/users/create',
+        templateUrl: '/browser/templates/create.user.html',
+        controller: 'UserCreateCtrl', 
+      })
       .state('departments.edit', {
         url: '/:id/edit',
         templateUrl: '/browser/templates/edit.department.html',

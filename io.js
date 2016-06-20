@@ -10,6 +10,7 @@ module.exports = {
     return _io;
   },
   broadcast: function(name, msg){
+    console.log('BROADCAST', name, msg);
     _io.emit(name, msg);
   }
 };

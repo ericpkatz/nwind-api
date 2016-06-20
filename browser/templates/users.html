@@ -1,4 +1,5 @@
 <h2>Users</h2>
+<a class='btn btn-primary' ui-sref='create_user'>Add a user</a>
 <ul class='list-group'>
   <li class='list-group-item' ng-repeat='user in users'>
     {{ user.firstName }},
@@ -6,6 +7,7 @@
     <br />
     <a ui-sref='user({ id: user.id })'>{{ user.email }}</a>
     <button class='btn btn-sm btn-danger pull-right' ng-click='delete(user)'>Delete</button>
+    <a class='btn btn-sm btn-primary pull-right' ui-sref='update_user({ id: user.id })'>Edit</a>
     <br clear='both' />
   </li>
 </ul>

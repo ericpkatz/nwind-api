@@ -18,6 +18,7 @@
     <div ng-controller='NavCtrl'>
       <ul class='nav nav-tabs' style='margin-bottom: 10px'>
         <li ui-sref-active='active'><a ui-sref='departments'>Departments</a></li>
+        <li ui-sref-active='active'><a ui-sref='users'>Users</a></li>
         <li ui-sref-active='active'><a ui-sref='categories'>Categories</a></li>
         <li ng-if='!auth.id'><a ui-sref='login'>Login</a></li>
         <li ng-if='auth.id'><a href='#' ui-sref='settings'>Settings</a></li>
@@ -42,7 +43,9 @@
   <script src="/browser/javascript/product.factory.js"></script>
   <script src="/browser/javascript/session.factory.js"></script>
   <script src="/browser/javascript/socket.factory.js"></script>
+  <script src="/browser/javascript/user.create.ctrl.js"></script>
   <script src="/browser/javascript/user.factory.js"></script>
+  <script src="/browser/javascript/user.update.ctrl.js"></script>
   <!-- endinject -->
   </body>
 </html>

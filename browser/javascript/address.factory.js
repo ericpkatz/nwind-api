@@ -1,5 +1,5 @@
 angular.module('app')
-  .factory('AddressFactory', function(DS){
+  .factory('AddressFactory', function(DS, SocketFactory){
     var factory = DS.defineResource({ 
       name: 'address',
       endpoint: 'addresses',
@@ -11,6 +11,11 @@ angular.module('app')
           }
         }
       }
+    });
+
+    SocketFactory.socket.on('address_change', function(message){
+      console.log(message);
+      factory.inject(message);
     });
     return factory;
   });

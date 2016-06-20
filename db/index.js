@@ -29,6 +29,16 @@ models.Address = db.define('address', {
   zipcode: Sequelize.STRING,
   lat: Sequelize.DECIMAL,
   lng: Sequelize.DECIMAL
+}, {
+  hooks: {
+    afterCreate: function(address){
+      io.broadcast('address_change', address.get()); 
+    },
+    afterDestroy: function(address){
+      io.broadcast('address_change', address.get()); 
+    }
+  
+  }
 });
 
 models.User = db.define('user', {
