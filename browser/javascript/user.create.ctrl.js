@@ -54,8 +54,6 @@ angular.module('app')
           $scope.save = function(){
             UserFactory.create($scope.model)
               .then(function(user){
-                //user is not getting added
-                UserFactory.inject(user);
                 $state.go('users');
               });
           };

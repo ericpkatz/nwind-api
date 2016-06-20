@@ -24,9 +24,9 @@ router.get('/', function(req, res, next) {
   User.findAll({
     include: include
   })
-    .then(function(users){
-      res.send(users);
-    });
+  .then(function(users){
+    res.send(users);
+  });
 });
 
 router.post('/', function(req, res, next) {
@@ -45,6 +45,13 @@ router.put('/:id', function(req, res, next) {
     .then(function(user){
       res.send(user);
     });
+});
+
+router.delete('/:id', function(req, res, next) {
+  User.destroy({ where: { id: req.params.id}})
+    .then(function(user){
+      return res.sendStatus(204);
+    })
 });
 
 router.get('/:id', function(req, res, next) {

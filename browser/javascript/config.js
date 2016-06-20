@@ -34,7 +34,7 @@ angular.module('app')
         },
         resolve: {
           users: function(UserFactory){
-            return UserFactory.findAll({}); 
+            return UserFactory.findAll({}, { useFilter: true }); 
           }
         }
       })
