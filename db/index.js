@@ -82,6 +82,7 @@ models.Product.belongsTo(models.Category);
 models.User.belongsTo(models.Department, { as: 'department' });
 
 models.User.hasMany(models.FavoriteProduct, { as: 'favoriteProducts', foreignKey: 'userId' });
+models.Product.hasMany(models.FavoriteProduct, { as: 'favoriteProducts', foreignKey: 'productId' });
 
 models.User.hasMany(models.Address, { as: 'addresses', foreignKey: 'userId'});
 

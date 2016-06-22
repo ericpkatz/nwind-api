@@ -1,15 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var Product = require('../db').models.Product;
-var Category = require('../db').models.Category;
+var models = require('../db').models;
+var Product = models.Product;
+var Category = models.Category;
+var FavoriteProduct = models.FavoriteProduct;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   Product.findAll({
-    include: {
+    include: [{
       model: Category,
       as: 'category'  
-    }
+    }]
   })
     .then(function(products){
       res.send(products);

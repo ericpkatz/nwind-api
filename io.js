@@ -11,6 +11,8 @@ module.exports = {
   },
   broadcast: function(name, msg){
     console.log('BROADCAST', name, msg);
-    _io.emit(name, msg);
+    if(_io){
+      _io.emit(name, msg);
+    }
   }
 };

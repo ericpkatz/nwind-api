@@ -111,6 +111,16 @@ Promise.bind({})
     return Promise.join(Address.create(whiteHouse), Address.create(empireStateBuilding));
     //this.usersMap.curly.addAddress(address);
   })
+  .then(function(){
+    Promise.join(FavoriteProduct.create({
+      userId: this.usersMap.moe.id,
+      productId: this.productsMap.chicken.id 
+    }), FavoriteProduct.create({
+      userId: this.usersMap.larry.id,
+      productId: this.productsMap.chicken.id 
+    }));
+  
+  })
 /*
   .then(function(departments){
     this.departments = departments;
