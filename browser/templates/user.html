@@ -1,22 +1,28 @@
-<input type='text' class='form-control' id='addressSearch'>
 <div>
   <h3>{{ user.firstName }} {{ user.lastName }}</h3>
   <div class='row'>
     <div class='col-sm-4'>
       <h5>Favorites</h5>
-      <ul>
-        <li ng-repeat='favorite in favoriteProducts'>
+      <ul class='list-group'>
+        <li ng-repeat='favorite in favoriteProducts' class='list-group-item'>
           {{ favorite.product.name }}
+          <button class='btn btn-warning pull-right' ng-click='removeFavorite(favorite)'>
+            Remove
+          </button>
+          <br clear='all' />
         </li>
       </ul>
       <h5>All Products</h5>
-      <ul>
-        <li ng-repeat='product in products'>
+      <ul class='list-group'>
+        <li ng-repeat='product in products' class='list-group-item'>
           {{ product.name }}
+          <button class='btn btn-primary pull-right' ng-show='notFavorite(product)' ng-click='addFavorite(product)'>Add As Favorite</button>
+          <br clear='all' />
         </li>
       </ul>
     </div>
     <div class='col-sm-4'>
+<input type='text' class='form-control' id='addressSearch'>
   <ul>
     <li ng-repeat='address in addresses'>
       {{ address.street }}
