@@ -1,5 +1,11 @@
 <div>
   <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+  <div class='well'>
+  <span ng-repeat='user in similarUsers track by $index'>
+    <a ui-sref='user({id: user.id })'>{{ user.email }}</a> 
+     .... 
+  </span>
+  </div>
   <div class='row'>
     <div class='col-sm-4'>
       <h5>Favorites</h5>

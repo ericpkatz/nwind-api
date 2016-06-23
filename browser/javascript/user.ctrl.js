@@ -1,5 +1,6 @@
 angular.module('app')
-  .controller('UserCtrl', function(FavoriteProductFactory, $scope, user, addresses, AddressFactory, favoriteProducts, products){
+  .controller('UserCtrl', function(FavoriteProductFactory, $scope, user, addresses, AddressFactory, favoriteProducts, products, similarUsers, SimilarUserFactory){
+    $scope.similarUsers = similarUsers;
     $scope.favoriteProducts = favoriteProducts;
     $scope.notFavorite = function(product){
       return $scope.favoriteProducts.filter(function(favorite){
@@ -14,11 +15,21 @@ angular.module('app')
         })
         .then(function(favoriteProducts){
           $scope.favoriteProducts = favoriteProducts;
+          return SimilarUserFactory.findAll({ userId: user.id }, { bypassCache: true });
+        })
+        .then(function(similarUsers){
+          $scope.similarUsers = similarUsers;
         });
     };
 
     $scope.removeFavorite = function(favorite){
-      FavoriteProductFactory.destroy({userId: user.id, id: favorite.id});
+      FavoriteProductFactory.destroy({userId: user.id, id: favorite.id})
+        .then(function(){
+          return SimilarUserFactory.findAll({ userId: user.id }, { bypassCache: true });
+        })
+        .then(function(similarUsers){
+          $scope.similarUsers = similarUsers;
+        });
     };
     
     $scope.products = products;

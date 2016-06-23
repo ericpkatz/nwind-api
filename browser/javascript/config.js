@@ -131,6 +131,9 @@ angular.module('app')
           addresses: function(AddressFactory, $stateParams){
             return AddressFactory.findAll({ userId: $stateParams.id }); 
           },
+          similarUsers: function(SimilarUserFactory, $stateParams){
+            return SimilarUserFactory.findAll({ userId: $stateParams.id }); 
+          },
           favoriteProducts: function(FavoriteProductFactory, $stateParams){
             return FavoriteProductFactory.findAll({ userId: $stateParams.id }); 
           }

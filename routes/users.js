@@ -5,6 +5,7 @@ var Product = require('../db').models.Product;
 var FavoriteProduct = require('../db').models.FavoriteProduct;
 var Department = require('../db').models.Department;
 var models = require('../db').models;
+var _ = require('lodash');
 var include = [
     {
       model: Department,
@@ -100,7 +101,7 @@ router.get('/:id/similar_users', function(req, res, next) {
         }));
         return memo;
       }, []);
-      res.send(users);
+      res.send(_.uniqBy(users, 'id'));
     });
 });
 
