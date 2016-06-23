@@ -1,23 +1,38 @@
 <input type='text' class='form-control' id='addressSearch'>
-<script>
-</script>
 <div>
+  <h3>{{ user.firstName }} {{ user.lastName }}</h3>
   <div class='row'>
-    <div class='col-sm-6'>
+    <div class='col-sm-4'>
+      <h5>Favorites</h5>
+      <ul>
+        <li ng-repeat='favorite in favoriteProducts'>
+          {{ favorite.product.name }}
+        </li>
+      </ul>
+      <h5>All Products</h5>
+      <ul>
+        <li ng-repeat='product in products'>
+          {{ product.name }}
+        </li>
+      </ul>
+    </div>
+    <div class='col-sm-4'>
   <ul>
     <li ng-repeat='address in addresses'>
-      {{ address.id }}
+      {{ address.street }}
       <br />
       {{ address.city }}
       <br />
       {{ address.state }}
+      <br />
+      {{ address.zipcode }}
       <br />
       <a ng-click='delete(address)'>Delete</a>
       <a ng-click='showOnMap(address)'>Show On Map</a>
     </li>
   </ul>
     </div>
-    <div class='col-sm-6'>
+    <div class='col-sm-4'>
       <div id='map' style='width:300px; height:300px'></div>
     </div>
   </div>

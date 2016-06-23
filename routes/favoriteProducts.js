@@ -1,11 +1,18 @@
 var router = require('express').Router({mergeParams: true});
-var FavoriteProduct = require('../db').models.FavoriteProduct;
+var models = require('../db').models;
+var FavoriteProduct = models.FavoriteProduct;
 
 router.get('/', function(req, res, next){
   FavoriteProduct.findAll({
     where: {
       userId: req.params.userId
-    }
+    },
+    include: [
+      {
+        model: models.Product,
+        as: 'product' 
+      }
+    ]
   })
   .then(function(favoriteProducts){
     res.send(favoriteProducts);

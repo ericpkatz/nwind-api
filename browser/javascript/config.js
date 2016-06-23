@@ -122,16 +122,24 @@ angular.module('app')
       })
       .state('user', {
         resolve: {
+          products: function(ProductFactory){
+            return ProductFactory.findAll(); 
+          },
           user: function(UserFactory, $stateParams){
             return UserFactory.find($stateParams.id); 
           },
           addresses: function(AddressFactory, $stateParams){
             return AddressFactory.findAll({ userId: $stateParams.id }); 
+          },
+          favoriteProducts: function(FavoriteProductFactory, $stateParams){
+            return FavoriteProductFactory.findAll({ userId: $stateParams.id }); 
           }
         },
         url: '/users/:id',
         templateUrl: '/browser/templates/user.html',
-        controller: function($scope, user, addresses, AddressFactory){
+        controller: function($scope, user, addresses, AddressFactory, favoriteProducts, products){
+          $scope.products = products;
+          $scope.favoriteProducts = favoriteProducts;
           $scope.addresses = addresses;
           $scope.user = user;
           $scope.delete = function(address){
